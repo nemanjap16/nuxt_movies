@@ -16,7 +16,7 @@
     </div>
     <div class="movie_details">
       <div class="poster_wrapper">
-        <nuxt-img
+        <img
           class="movie_poster"
           :src="`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`"
           :alt="`${movie.title} backdrop`"

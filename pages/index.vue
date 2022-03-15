@@ -32,9 +32,7 @@ export default {
   },
   methods: {
     async getMovies() {
-      const movies = await this.$axios.$get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.$config.apiKey}&language=en-US&page=${this.page}`
-      )
+      const movies = await this.$axios.$get(this.upcoming)
       this.movies.push(...movies.results)
     },
     handleLoad() {

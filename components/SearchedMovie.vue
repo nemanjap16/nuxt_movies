@@ -3,7 +3,7 @@
     <div v-for="movie in movies" :key="movie.id">
       <div class="movie">
         <div class="movie_wrapper">
-          <nuxt-img
+          <img
             class="movie_poster"
             :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
             alt="poster"
