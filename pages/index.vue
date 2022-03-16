@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Loader v-if="loader" />
     <Hero />
     <div class="container">
       <ShowMovies :movies="movies" />
@@ -21,7 +22,7 @@ export default {
     return {
       page: 1,
       movies: [],
-      upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.$config.apiKey}&language=en-US&page=${this.page}`,
+      loader: true,
     }
   },
   head: {
@@ -32,8 +33,11 @@ export default {
   },
   methods: {
     async getMovies() {
-      const movies = await this.$axios.$get(this.upcoming)
+      const movies = await this.$axios.$get(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.$config.apiKey}&language=en-US&page=${this.page}`
+      )
       this.movies.push(...movies.results)
+      this.loader = false
     },
     handleLoad() {
       this.page++

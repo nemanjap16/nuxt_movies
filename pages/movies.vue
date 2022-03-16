@@ -9,11 +9,10 @@
           placeholder="search movies ..."
           @keypress.enter="$fetch"
         />
-        <button class="search_btn" @click="clear">Clear Input</button>
       </div>
       <ShowMovies v-if="searchInput === ''" :movies="movies" />
       <searched-movie v-else :movies="searched" />
-      <div class="btn">
+      <div v-show="totalPages >= searchPage" class="btn">
         <button class="load" @click="handleLoad">Load More</button>
       </div>
     </div>
@@ -30,13 +29,16 @@ export default {
       searched: [],
       searchInput: '',
       query: '',
+      totalPages: 1,
     }
   },
   fetchDelay: 1000,
   async fetch() {
     if (this.searchInput === '') {
+      this.searched = []
       await this.getMovies()
     } else {
+      this.searched = []
       await this.searchMovie(this.searchInput)
     }
   },
@@ -52,6 +54,7 @@ export default {
         `https://api.themoviedb.org/3/search/movie?api_key=${this.$config.apiKey}&language=en-US&query=${query}&page=${this.searchPage}&include_adult=false`
       )
       this.searched.push(...search.results)
+      this.totalPages = search.total_pages
     },
     handleLoad() {
       if (this.searchInput === '') {
@@ -63,12 +66,6 @@ export default {
         this.searchInput = this.query
         return this.searchMovie(this.query)
       }
-    },
-    clear() {
-      this.page = 1
-      this.searchPage = 1
-      this.searched = []
-      this.searchInput = ''
     },
   },
 }
@@ -89,20 +86,7 @@ input {
   justify-content: center;
 
   input {
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-  }
-
-  .search_btn {
-    appearance: none;
-    outline: none;
-    border: none;
-    padding: 12px;
-    background-color: red;
-    color: #fff;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    cursor: pointer;
+    border-radius: 5px;
   }
 }
 
