@@ -15,8 +15,8 @@ export default {}
   overflow: hidden;
   background: linear-gradient(
       to bottom,
-      rgba(5, 2, 49, 0.75),
-      rgba(5, 2, 49, 0.9)
+      rgba(14, 16, 26, 0.8),
+      rgba(14, 16, 26, 0.8)
     ),
     url('/sonic2.jpg') no-repeat center center;
   background-size: cover;
